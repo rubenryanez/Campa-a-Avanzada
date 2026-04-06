@@ -280,6 +280,329 @@ textarea.edit-input { min-height: 100px; resize: vertical; }
 .toast.show { transform: translateY(0); opacity: 1; }
 
 /* ═══════════════════════════════════════════════════════════════
+   [NUEVO] SISTEMA DE LOGIN DE ACCESO PRINCIPAL
+═══════════════════════════════════════════════════════════════ */
+/* Ocultar contenido hasta autenticar */
+#app-content {
+  display: none;
+}
+
+#app-content.authenticated {
+  display: block;
+}
+
+/* Pantalla de login principal */
+#access-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1B8E8E 0%, #147575 50%, #0d5a5a 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#access-screen.hidden {
+  display: none;
+}
+
+.access-logo {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.access-logo h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--white);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  margin-bottom: 8px;
+}
+
+.access-logo p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.1em;
+}
+
+#access-box {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 48px;
+  width: 380px;
+  box-shadow: 0 30px 100px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+#access-box h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+#access-box p {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 28px;
+}
+
+#access-box input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e0e8f0;
+  border-radius: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  margin-bottom: 14px;
+  transition: all 0.3s;
+}
+
+#access-box input:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 4px rgba(27, 142, 142, 0.1);
+}
+
+#access-box button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: var(--white);
+  border: none;
+  border-radius: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+#access-box button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(27, 142, 142, 0.4);
+}
+
+#access-error {
+  color: var(--red);
+  font-size: 14px;
+  margin-top: 16px;
+  display: none;
+  padding: 12px;
+  background: #fee2e2;
+  border-radius: 10px;
+}
+
+#access-error.show {
+  display: block;
+}
+
+.access-footer {
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+/* Separador en panel nav */
+.panel-nav-separator {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 16px 0;
+}
+
+/* Gestión de usuarios en panel */
+.users-section {
+  margin-top: 24px;
+}
+
+.users-section h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-user-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.add-user-form input {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.add-user-form input:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
+.add-user-form button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-user-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(27, 142, 142, 0.3);
+}
+
+.users-list {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 8px;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--white);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.user-item:last-child {
+  margin-bottom: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.user-details strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.user-details span {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.user-delete {
+  width: 36px;
+  height: 36px;
+  background: #fee2e2;
+  border: none;
+  border-radius: 8px;
+  color: var(--red);
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.user-delete:hover {
+  background: var(--red);
+  color: var(--white);
+}
+
+.users-empty {
+  text-align: center;
+  padding: 32px;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.master-key-info {
+  background: linear-gradient(135deg, rgba(245, 196, 0, 0.1), rgba(245, 166, 35, 0.05));
+  border: 1px solid rgba(245, 196, 0, 0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.master-key-info .icon {
+  font-size: 24px;
+}
+
+.master-key-info .text {
+  flex: 1;
+}
+
+.master-key-info .text strong {
+  display: block;
+  font-size: 13px;
+  color: var(--gold-dark);
+  margin-bottom: 2px;
+}
+
+.master-key-info .text span {
+  font-size: 12px;
+  color: var(--text-mid);
+}
+
+/* Botón cerrar sesión */
+.logout-btn {
+  position: fixed;
+  top: 24px;
+  right: 90px;
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mid);
+  cursor: pointer;
+  z-index: 200;
+  transition: all 0.3s;
+  box-shadow: var(--shadow);
+  display: none;
+}
+
+.logout-btn.show {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-btn:hover {
+  background: #fee2e2;
+  color: var(--red);
+  border-color: #fecaca;
+}
+
+/* ═══════════════════════════════════════════════════════════════
    [CAMBIO #2] PÁGINAS - TÍTULOS 2X MÁS GRANDES
 ═══════════════════════════════════════════════════════════════ */
 .page {
@@ -1203,7 +1526,34 @@ textarea.edit-input { min-height: 100px; resize: vertical; }
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════════════════════════════
+     [NUEVO] PANTALLA DE LOGIN DE ACCESO PRINCIPAL
+═══════════════════════════════════════════════════════════════ -->
+<div id="access-screen">
+  <div class="access-logo">
+    <h1>AVANZADAS 2026</h1>
+    <p>LarrainVial AGF × Consorcio</p>
+  </div>
+  <div id="access-box">
+    <h3>🔐 Acceso Restringido</h3>
+    <p>Ingresa tus credenciales para continuar</p>
+    <input type="text" id="access-user" placeholder="Usuario">
+    <input type="password" id="access-pass" placeholder="Contraseña">
+    <button onclick="validateAccess()">Ingresar</button>
+    <div id="access-error">Usuario o contraseña incorrectos</div>
+    <p class="access-footer">Sistema de uso interno</p>
+  </div>
+</div>
+
+<!-- Contenedor principal (oculto hasta autenticar) -->
+<div id="app-content">
+
 <div id="progress-bar"></div>
+
+<!-- Botón cerrar sesión -->
+<button class="logout-btn" id="logout-btn" onclick="logout()">
+  🚪 Cerrar sesión
+</button>
 
 <nav id="nav-map">
   <div class="nav-item active" data-target="inicio"><div class="nav-dot"></div><span class="nav-label">Inicio</span></div>
@@ -1242,6 +1592,8 @@ textarea.edit-input { min-height: 100px; resize: vertical; }
       <div class="panel-nav-item" data-page="req-jjvv">📋 Criterios JJVV</div>
       <div class="panel-nav-item" data-page="req-jjoo">📋 Criterios JJOO</div>
       <div class="panel-nav-item" data-page="cierre">🚀 Cierre</div>
+      <div class="panel-nav-separator"></div>
+      <div class="panel-nav-item" data-page="usuarios">👥 Gestión Usuarios</div>
     </div>
     <div class="panel-close-btn" onclick="closePanel()">✕ Cerrar</div>
   </div>
@@ -1675,8 +2027,286 @@ textarea.edit-input { min-height: 100px; resize: vertical; }
   </div>
 </section>
 
+</div><!-- Fin de #app-content -->
+
 <script>
-// Barra de progreso
+// ═══════════════════════════════════════════════════════════════
+// CONFIGURACIÓN DE AUTENTICACIÓN
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * CLAVE MAESTRA - Cambiar aquí para modificar la clave de acceso principal
+ * Esta clave siempre funcionará para acceder al sistema
+ */
+const MASTER_KEY = {
+  user: 'admin',      // Usuario maestro
+  pass: 'admin123'    // Contraseña maestra - CAMBIAR AQUÍ
+};
+
+/**
+ * Clave para localStorage donde se guardan los usuarios
+ * Los usuarios se guardan como: [{ user: "nombre", pass: "clave" }, ...]
+ */
+const USERS_STORAGE_KEY = 'avanzadas2026_users';
+const SESSION_KEY = 'avanzadas2026_session';
+
+// ═══════════════════════════════════════════════════════════════
+// FUNCIONES DE AUTENTICACIÓN
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Obtener usuarios guardados en localStorage
+ */
+function getUsers() {
+  const saved = localStorage.getItem(USERS_STORAGE_KEY);
+  return saved ? JSON.parse(saved) : [];
+}
+
+/**
+ * Guardar usuarios en localStorage
+ */
+function saveUsers(users) {
+  localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+}
+
+/**
+ * Validar credenciales contra clave maestra o usuarios creados
+ */
+function validateCredentials(user, pass) {
+  // 1. Verificar clave maestra
+  if (user === MASTER_KEY.user && pass === MASTER_KEY.pass) {
+    return { valid: true, isMaster: true };
+  }
+  
+  // 2. Verificar usuarios creados
+  const users = getUsers();
+  const foundUser = users.find(u => u.user === user && u.pass === pass);
+  if (foundUser) {
+    return { valid: true, isMaster: false, userName: foundUser.user };
+  }
+  
+  return { valid: false };
+}
+
+/**
+ * Verificar si hay sesión activa
+ */
+function checkSession() {
+  const session = localStorage.getItem(SESSION_KEY);
+  return session === 'active';
+}
+
+/**
+ * Crear sesión
+ */
+function createSession() {
+  localStorage.setItem(SESSION_KEY, 'active');
+}
+
+/**
+ * Cerrar sesión
+ */
+function destroySession() {
+  localStorage.removeItem(SESSION_KEY);
+}
+
+/**
+ * Validar acceso desde pantalla de login principal
+ */
+function validateAccess() {
+  const user = document.getElementById('access-user').value.trim();
+  const pass = document.getElementById('access-pass').value;
+  
+  const result = validateCredentials(user, pass);
+  
+  if (result.valid) {
+    createSession();
+    showApp();
+    showToast('✓ Bienvenido' + (result.isMaster ? ' (Admin)' : ''));
+  } else {
+    document.getElementById('access-error').classList.add('show');
+    setTimeout(() => {
+      document.getElementById('access-error').classList.remove('show');
+    }, 3000);
+  }
+}
+
+/**
+ * Mostrar la aplicación después de autenticar
+ */
+function showApp() {
+  document.getElementById('access-screen').classList.add('hidden');
+  document.getElementById('app-content').classList.add('authenticated');
+  document.getElementById('logout-btn').classList.add('show');
+}
+
+/**
+ * Cerrar sesión
+ */
+function logout() {
+  destroySession();
+  document.getElementById('access-screen').classList.remove('hidden');
+  document.getElementById('app-content').classList.remove('authenticated');
+  document.getElementById('logout-btn').classList.remove('show');
+  document.getElementById('access-user').value = '';
+  document.getElementById('access-pass').value = '';
+  showToast('Sesión cerrada');
+}
+
+/**
+ * Verificar sesión al cargar la página
+ */
+function initAuth() {
+  if (checkSession()) {
+    showApp();
+  }
+}
+
+// Enter key para login de acceso
+document.getElementById('access-pass').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') validateAccess();
+});
+
+// Inicializar autenticación
+initAuth();
+
+// ═══════════════════════════════════════════════════════════════
+// GESTIÓN DE USUARIOS
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Agregar nuevo usuario
+ */
+function addUser() {
+  const userInput = document.getElementById('new-user-name');
+  const passInput = document.getElementById('new-user-pass');
+  
+  const userName = userInput.value.trim();
+  const userPass = passInput.value;
+  
+  if (!userName || !userPass) {
+    showToast('⚠️ Completa usuario y contraseña');
+    return;
+  }
+  
+  if (userName === MASTER_KEY.user) {
+    showToast('⚠️ No puedes usar ese nombre de usuario');
+    return;
+  }
+  
+  const users = getUsers();
+  
+  // Verificar si ya existe
+  if (users.find(u => u.user === userName)) {
+    showToast('⚠️ El usuario ya existe');
+    return;
+  }
+  
+  // Agregar usuario
+  users.push({ user: userName, pass: userPass });
+  saveUsers(users);
+  
+  // Limpiar inputs
+  userInput.value = '';
+  passInput.value = '';
+  
+  // Actualizar lista
+  renderUsersList();
+  showToast('✓ Usuario agregado');
+}
+
+/**
+ * Eliminar usuario
+ */
+function deleteUser(userName) {
+  if (!confirm(`¿Eliminar usuario "${userName}"?`)) return;
+  
+  let users = getUsers();
+  users = users.filter(u => u.user !== userName);
+  saveUsers(users);
+  
+  renderUsersList();
+  showToast('✓ Usuario eliminado');
+}
+
+/**
+ * Renderizar lista de usuarios en el panel
+ */
+function renderUsersList() {
+  const container = document.getElementById('users-list-container');
+  if (!container) return;
+  
+  const users = getUsers();
+  
+  if (users.length === 0) {
+    container.innerHTML = `
+      <div class="users-empty">
+        <p>👤 No hay usuarios creados</p>
+        <p style="font-size:12px;margin-top:8px;">Agrega usuarios usando el formulario de arriba</p>
+      </div>
+    `;
+    return;
+  }
+  
+  let html = '';
+  users.forEach(u => {
+    html += `
+      <div class="user-item">
+        <div class="user-info">
+          <div class="user-avatar">👤</div>
+          <div class="user-details">
+            <strong>${u.user}</strong>
+            <span>Usuario estándar</span>
+          </div>
+        </div>
+        <button class="user-delete" onclick="deleteUser('${u.user}')" title="Eliminar">🗑️</button>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
+
+/**
+ * Cargar editor de gestión de usuarios
+ */
+function loadUsersEditor() {
+  panelCurrentPage.textContent = 'Gestión de Usuarios';
+  
+  const html = `
+    <div class="master-key-info">
+      <div class="icon">🔑</div>
+      <div class="text">
+        <strong>Clave Maestra Activa</strong>
+        <span>Usuario: ${MASTER_KEY.user} • La clave maestra siempre tiene acceso</span>
+      </div>
+    </div>
+    
+    <div class="users-section">
+      <h4>👥 Agregar Nuevo Usuario</h4>
+      <div class="add-user-form">
+        <input type="text" id="new-user-name" placeholder="Nombre de usuario">
+        <input type="password" id="new-user-pass" placeholder="Contraseña">
+        <button onclick="addUser()">➕ Agregar</button>
+      </div>
+      
+      <h4 style="margin-top:32px;">📋 Usuarios Registrados</h4>
+      <div class="users-list" id="users-list-container"></div>
+    </div>
+  `;
+  
+  panelEditor.innerHTML = html;
+  renderUsersList();
+  
+  // Enter key para agregar usuario
+  document.getElementById('new-user-pass').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addUser();
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BARRA DE PROGRESO
+// ═══════════════════════════════════════════════════════════════
 const progressBar = document.getElementById('progress-bar');
 window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;
@@ -1684,7 +2314,9 @@ window.addEventListener('scroll', () => {
   progressBar.style.width = (scrollTop / docHeight) * 100 + '%';
 });
 
-// Animaciones con IntersectionObserver
+// ═══════════════════════════════════════════════════════════════
+// ANIMACIONES
+// ═══════════════════════════════════════════════════════════════
 const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .scale-in, .cierre-fade');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1706,7 +2338,9 @@ document.querySelectorAll('#inicio .fade-in, #inicio .slide-up').forEach(el => {
   setTimeout(() => el.classList.add('visible'), 100);
 });
 
-// Navegación
+// ═══════════════════════════════════════════════════════════════
+// NAVEGACIÓN
+// ═══════════════════════════════════════════════════════════════
 const pageIds = ['inicio', 'objetivo', 'etapas', 'premios', 'canales', 'req-jjvv', 'req-jjoo', 'cierre'];
 const navItems = document.querySelectorAll('.nav-item');
 
@@ -1750,7 +2384,9 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Control Maestro
+// ═══════════════════════════════════════════════════════════════
+// CONTROL MAESTRO (PANEL DE EDICIÓN)
+// ═══════════════════════════════════════════════════════════════
 const masterBtn = document.getElementById('master-btn');
 const loginOverlay = document.getElementById('login-overlay');
 const loginClose = document.getElementById('login-close');
@@ -1762,7 +2398,7 @@ const previewContainer = document.getElementById('preview-container');
 const previewContent = document.getElementById('preview-content');
 const toast = document.getElementById('toast');
 
-let isLoggedIn = false;
+let isPanelLoggedIn = false;
 let currentEditPage = 'inicio';
 let pendingChanges = {};
 
@@ -1779,7 +2415,7 @@ function loadSavedData() {
 loadSavedData();
 
 masterBtn.addEventListener('click', () => {
-  if (isLoggedIn) openPanel();
+  if (isPanelLoggedIn) openPanel();
   else loginOverlay.classList.add('show');
 });
 
@@ -1788,11 +2424,17 @@ loginOverlay.addEventListener('click', (e) => {
   if (e.target === loginOverlay) loginOverlay.classList.remove('show');
 });
 
+/**
+ * Login para el panel de control (usa mismas credenciales)
+ */
 function attemptLogin() {
-  const user = document.getElementById('login-user').value;
+  const user = document.getElementById('login-user').value.trim();
   const pass = document.getElementById('login-pass').value;
-  if (user === 'admin' && pass === '1234') {
-    isLoggedIn = true;
+  
+  const result = validateCredentials(user, pass);
+  
+  if (result.valid) {
+    isPanelLoggedIn = true;
     loginOverlay.classList.remove('show');
     openPanel();
   } else {
@@ -1820,7 +2462,13 @@ panelNavItems.forEach(item => {
     panelNavItems.forEach(n => n.classList.remove('active'));
     item.classList.add('active');
     currentEditPage = item.dataset.page;
-    loadPageEditor(currentEditPage);
+    
+    // Cargar editor según página seleccionada
+    if (currentEditPage === 'usuarios') {
+      loadUsersEditor();
+    } else {
+      loadPageEditor(currentEditPage);
+    }
     previewContainer.classList.remove('show');
   });
 });
@@ -1833,6 +2481,11 @@ function loadPageEditor(pageId) {
   panelCurrentPage.textContent = pageNames[pageId] || pageId;
   
   const page = document.getElementById(pageId);
+  if (!page) {
+    panelEditor.innerHTML = '<p style="color:var(--text-light);">Página no encontrada.</p>';
+    return;
+  }
+  
   const editables = page.querySelectorAll('[data-editable]');
   let html = '';
   editables.forEach(el => {
@@ -1900,17 +2553,28 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
+// ═══════════════════════════════════════════════════════════════
+// LOG DE CONSOLA
+// ═══════════════════════════════════════════════════════════════
 console.log('═══════════════════════════════════════════════════════════');
-console.log('   AVANZADAS 2026 - Versión Final Mejorada');
+console.log('   AVANZADAS 2026 - Sistema con Autenticación');
 console.log('═══════════════════════════════════════════════════════════');
-console.log('CAMBIOS APLICADOS:');
-console.log('  ✓ Criterios JJVV: Santiago MM$300, Regiones MM$250, 30%, 3/4');
-console.log('  ✓ Criterios JJOO: Santiago MM$500, Regiones MM$350, 30%, 3/4');
-console.log('  ✓ Títulos 2x más grandes');
-console.log('  ✓ Tarjetas comparativas Santiago vs Regiones');
-console.log('  ✓ Cierre emocional "PARTIMOS LA AVANZADA"');
-console.log('  ✓ Animaciones mejoradas con delays');
-console.log('⚙️ CONTROL MAESTRO: admin / 1234');
+console.log('');
+console.log('🔐 SISTEMA DE ACCESO:');
+console.log('   Clave maestra: admin / admin123');
+console.log('   (Cambiar en constante MASTER_KEY del script)');
+console.log('');
+console.log('👥 GESTIÓN DE USUARIOS:');
+console.log('   Los usuarios se guardan en localStorage');
+console.log('   Key: avanzadas2026_users');
+console.log('   Formato: [{ user: "nombre", pass: "clave" }]');
+console.log('');
+console.log('📋 FUNCIONALIDADES:');
+console.log('   ✓ Login obligatorio al entrar');
+console.log('   ✓ Sesión persistente en localStorage');
+console.log('   ✓ Botón cerrar sesión');
+console.log('   ✓ Gestión de usuarios en panel Settings');
+console.log('   ✓ Agregar/eliminar usuarios');
 console.log('═══════════════════════════════════════════════════════════');
 </script>
 
