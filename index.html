@@ -1766,9 +1766,16 @@ body {
   .categoria-subtitle { font-size: 11px; line-height: 1.4; }
   .premios-row { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; margin-top: 12px; }
   .premio-monto-card { min-width: 0 !important; padding: 12px 8px !important; border-radius: 12px; }
-  .premio-posicion { font-size: 10px; letter-spacing: 0.02em; margin-bottom: 4px; }
+  .premio-posicion { font-size: 10px; letter-spacing: 0.02em; margin-bottom: 4px; line-height: 1.3; }
   .premio-valor { font-size: 18px !important; }
   .premio-valor.big { font-size: 22px !important; }
+  
+  /* Asesores - 1 columna en móvil por textos largos */
+  .asesores .premios-row { grid-template-columns: 1fr !important; gap: 10px !important; }
+  .asesores .premio-monto-card { padding: 16px 14px !important; }
+  .asesores .premio-posicion { font-size: 11px; }
+  .asesores .premio-valor.big { font-size: 24px !important; }
+  
   .subranking-row { flex-direction: column; padding: 12px; gap: 6px; border-radius: 10px; margin-top: 12px; }
   .subranking-label { text-align: center; font-size: 11px; margin-bottom: 6px; }
   .subranking-item { width: 100%; text-align: center; padding: 8px 10px; font-size: 11px; border-radius: 8px; }
