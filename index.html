@@ -1612,7 +1612,31 @@ body {
   .cierre-message { padding: 24px 18px; }
   .page-title { font-size: 32px; }
   .page-subtitle { font-size: 16px; margin-bottom: 32px; }
-  .tabla-corporativa th, .tabla-corporativa td { padding: 10px 8px; font-size: 12px; }
+  
+  /* Tabla asesores - scroll horizontal */
+  .tabla-corporativa { 
+    display: block; 
+    overflow-x: auto; 
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabla-corporativa th, .tabla-corporativa td { 
+    padding: 12px 14px; 
+    font-size: 13px; 
+    min-width: 100px;
+  }
+  .tabla-corporativa td:first-child,
+  .tabla-corporativa th:first-child { 
+    min-width: 90px;
+    position: sticky;
+    left: 0;
+    background: var(--white);
+    z-index: 1;
+  }
+  .tabla-corporativa thead th:first-child {
+    background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  }
+  
   .criterios-grid { gap: 20px; }
   .criterio-card { padding: 24px 20px; }
   .criterio-header h3 { font-size: 24px; }
@@ -1625,21 +1649,59 @@ body {
   .canales-grid { gap: 20px; }
   .canal-card { padding: 24px 20px; }
   .canal-header h3 { font-size: 20px; }
-  .sorteo-badge-big { padding: 16px 20px; font-size: 14px; }
+  .sorteo-badge-big { padding: 16px 20px; font-size: 14px; text-align: center; }
   .hero-badge { padding: 10px 20px; }
   .hero-badge-text { font-size: 12px; }
   .hero-subtitle { font-size: 20px; }
   .scroll-indicator { bottom: 24px; }
   #edit-btn { top: 12px; left: 12px; width: 34px; height: 34px; font-size: 12px; }
-  .categoria-premios-card { padding: 20px 16px; }
-  .categoria-title-big { font-size: 22px; }
-  .premios-row { gap: 8px; }
-  .premio-monto-card { min-width: 100px; padding: 14px 10px; }
-  .premio-valor { font-size: 22px; }
-  .premio-valor.big { font-size: 28px; }
-  .subranking-row { padding: 12px; gap: 8px; }
-  .subranking-item { padding: 8px 10px; font-size: 12px; }
-  .canal-summary { flex-direction: column; text-align: center; padding: 16px; }
+  
+  /* Premios por categoría - móvil */
+  .categoria-premios-card { padding: 20px 14px; }
+  .categoria-header { flex-direction: column; text-align: center; gap: 12px; }
+  .categoria-icon-big { width: 50px; height: 50px; font-size: 24px; margin: 0 auto; }
+  .categoria-title-big { font-size: 20px; }
+  .categoria-subtitle { font-size: 12px; }
+  
+  /* Premios row - 2 columnas en móvil */
+  .premios-row { 
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .premio-monto-card { 
+    min-width: unset !important; 
+    padding: 14px 8px !important;
+    flex: unset !important;
+  }
+  .premio-posicion { font-size: 11px; }
+  .premio-valor { font-size: 20px !important; }
+  .premio-valor.big { font-size: 24px !important; }
+  
+  /* Reconocimientos - stack vertical */
+  .subranking-row { 
+    padding: 14px 12px; 
+    gap: 8px;
+    flex-direction: column;
+  }
+  .subranking-label { text-align: center; margin-bottom: 8px; }
+  .subranking-item { 
+    padding: 10px 12px; 
+    font-size: 12px; 
+    text-align: center;
+    width: 100%;
+  }
+  
+  /* Resumen canal */
+  .canal-summary { 
+    flex-direction: column; 
+    text-align: center; 
+    padding: 16px;
+    gap: 8px;
+  }
+  .canal-summary-label { font-size: 12px; }
+  .canal-summary-total { font-size: 22px; }
+  
   .dashboard-grid { gap: 20px; }
   .dashboard-card { padding: 20px 16px; }
   .ranking-item { gap: 12px; }
@@ -1657,17 +1719,31 @@ body {
 }
 
 @media (max-width: 480px) {
-  .page { padding: 32px 14px; }
-  .hero-title { font-size: 40px; }
-  .page-title { font-size: 28px; }
-  .cierre-title { font-size: 30px; }
+  .page { padding: 28px 12px; }
+  .hero-title { font-size: 36px; }
+  .page-title { font-size: 26px; }
+  .cierre-title { font-size: 28px; }
   .premios-number { font-size: 60px; }
-  .criterio-header h3 { font-size: 20px; }
-  .criterio-item-value { font-size: 20px; }
-  .premio-valor { font-size: 18px; }
-  .premio-valor.big { font-size: 24px; }
-  .categoria-title-big { font-size: 20px; }
-  .nav-map { display: none; }
+  .criterio-header h3 { font-size: 18px; }
+  .criterio-item-value { font-size: 18px; }
+  
+  /* Premios categoría extra pequeño */
+  .categoria-premios-card { padding: 16px 12px; }
+  .categoria-title-big { font-size: 18px; }
+  .premio-posicion { font-size: 10px; letter-spacing: 0; }
+  .premio-valor { font-size: 18px !important; }
+  .premio-valor.big { font-size: 20px !important; }
+  .subranking-item { font-size: 11px; padding: 8px 10px; }
+  .canal-summary-total { font-size: 20px; }
+  
+  /* Tabla asesores más compacta */
+  .tabla-corporativa th, .tabla-corporativa td { 
+    padding: 10px 12px; 
+    font-size: 12px; 
+    min-width: 85px;
+  }
+  
+  #nav-map { display: none; }
 }
 
 /* Toast */
