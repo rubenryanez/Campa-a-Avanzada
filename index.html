@@ -41,6 +41,239 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   BOTÓN EDICIÓN RÁPIDA (esquina izquierda)
+═══════════════════════════════════════════════════════════════ */
+#edit-btn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 200;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  font-size: 14px;
+  opacity: 0.5;
+}
+#edit-btn:hover {
+  opacity: 1;
+  background: var(--white);
+  transform: scale(1.1);
+  box-shadow: var(--shadow);
+}
+
+/* Modal de edición */
+#edit-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 58, 74, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#edit-modal.show { display: flex; }
+
+.edit-modal-box {
+  background: var(--white);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.25);
+}
+
+.edit-modal-header {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-modal-header h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.edit-modal-close {
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.edit-modal-body {
+  padding: 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.edit-field {
+  margin-bottom: 20px;
+}
+
+.edit-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.edit-field input, .edit-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.edit-field textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.edit-field input:focus, .edit-field textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
+.edit-modal-footer {
+  padding: 16px 24px;
+  background: #f8fafc;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.edit-btn-save {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-btn-cancel {
+  padding: 12px 24px;
+  background: #e2e8f0;
+  color: var(--text-mid);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PANTALLA DE LOGIN
+═══════════════════════════════════════════════════════════════ */
+#login-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1B8E8E 0%, #147575 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#login-screen.hidden { display: none; }
+
+.login-box {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 48px 40px;
+  width: 340px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.login-logo {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.login-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 32px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: 'Outfit', sans-serif;
+  margin-bottom: 12px;
+  transition: all 0.3s;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.3s;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(27, 142, 142, 0.4);
+}
+
+.login-error {
+  color: var(--red);
+  font-size: 13px;
+  margin-top: 12px;
+  display: none;
+}
+
+.login-error.show { display: block; }
+
+#app-content { display: none; }
+#app-content.visible { display: block; }
+
+/* ═══════════════════════════════════════════════════════════════
    BARRA DE PROGRESO
 ═══════════════════════════════════════════════════════════════ */
 #progress-bar {
@@ -1390,7 +1623,41 @@ body {
 </head>
 <body>
 
+<!-- PANTALLA DE LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">🏔️</div>
+    <h1 class="login-title">Avanzadas 2026</h1>
+    <p class="login-subtitle">Ingresa tus credenciales</p>
+    <input type="text" id="login-user" class="login-input" placeholder="Usuario">
+    <input type="password" id="login-pass" class="login-input" placeholder="Contraseña">
+    <button class="login-btn" onclick="doLogin()">Ingresar</button>
+    <p class="login-error" id="login-error">Usuario o contraseña incorrectos</p>
+  </div>
+</div>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div id="app-content">
+
 <div id="progress-bar"></div>
+
+<!-- Botón edición rápida -->
+<div id="edit-btn" title="Editar página actual">🔧</div>
+
+<!-- Modal de edición -->
+<div id="edit-modal">
+  <div class="edit-modal-box">
+    <div class="edit-modal-header">
+      <h3>✏️ Editar: <span id="edit-page-name">Página</span></h3>
+      <button class="edit-modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <div class="edit-modal-body" id="edit-fields"></div>
+    <div class="edit-modal-footer">
+      <button class="edit-btn-cancel" onclick="closeEditModal()">Cancelar</button>
+      <button class="edit-btn-save" onclick="saveEdits()">💾 Guardar</button>
+    </div>
+  </div>
+</div>
 
 <nav id="nav-map">
   <div class="nav-item active" data-target="inicio"><div class="nav-dot"></div><span class="nav-label">Inicio</span></div>
@@ -1567,6 +1834,13 @@ body {
         <div class="premio-content">
           <h4>Reconocimiento FFMM + SGold</h4>
           <p>Destacaremos al mejor en la suma de ambas líneas</p>
+        </div>
+      </div>
+      <div class="card premio-card scale-in delay-5" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.04)); border: 2px solid rgba(16, 185, 129, 0.2);">
+        <div class="premio-icon" style="background: linear-gradient(135deg, #10B981, #059669);">👥</div>
+        <div class="premio-content">
+          <h4 style="color: #059669;">Reconocimiento N° Clientes Totales FFMM</h4>
+          <p><strong>Para EEVV (Fuerza de Ventas) y EERR (Canal Relación):</strong> Se reconocerá al ejecutivo con mayor cantidad de clientes aportando en la línea de Fondos Mutuos. Considera aportes desde $3 millones por RUT de cliente.</p>
         </div>
       </div>
     </div>
@@ -2126,27 +2400,66 @@ body {
     .subranking-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-      padding-top: 12px;
-      border-top: 1px dashed #e2e8f0;
+      gap: 10px;
+      margin-top: 16px;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.04));
+      border-radius: 14px;
+      border: 1px solid rgba(16, 185, 129, 0.15);
     }
     
     .subranking-label {
-      font-size: 12px;
-      color: var(--text-light);
+      font-size: 13px;
+      color: #059669;
       width: 100%;
-      margin-bottom: 4px;
-      font-weight: 600;
+      margin-bottom: 6px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .subranking-label::before {
+      content: '⭐';
+      font-size: 14px;
     }
     
     .subranking-item {
-      padding: 8px 14px;
-      background: #f1f5f9;
+      padding: 10px 16px;
+      background: var(--white);
       border-radius: 10px;
-      font-size: 13px;
-      color: var(--text-mid);
+      font-size: 14px;
+      color: var(--text-dark);
       font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border: 1px solid rgba(16, 185, 129, 0.1);
+    }
+    
+    /* Resumen de canal */
+    .canal-summary {
+      margin-top: 24px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(27, 142, 142, 0.08), rgba(20, 117, 117, 0.04));
+      border-radius: 14px;
+      border: 1px solid rgba(27, 142, 142, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    
+    .canal-summary-label {
+      font-size: 14px;
+      color: var(--teal-dark);
+      font-weight: 700;
+    }
+    
+    .canal-summary-total {
+      font-family: 'Sora', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--teal);
     }
     
     .total-premios-badge {
@@ -2183,7 +2496,7 @@ body {
           <div class="categoria-icon-big">🏆</div>
           <div>
             <h3 class="categoria-title-big">EEVV</h3>
-            <p class="categoria-subtitle">Ejecutivos de Venta</p>
+            <p class="categoria-subtitle">Ejecutivos de Venta · Canal Fuerza de Ventas</p>
           </div>
         </div>
         <div class="premios-row">
@@ -2205,10 +2518,10 @@ body {
           </div>
         </div>
         <div class="subranking-row">
-          <span class="subranking-label">Reconocimientos adicionales:</span>
+          <span class="subranking-label">Reconocimientos Adicionales</span>
           <span class="subranking-item">📋 APV+CUI: $50.000</span>
           <span class="subranking-item">📊 FFMM+SGOLD: $50.000</span>
-          <span class="subranking-item">👥 N° Clientes: $50.000</span>
+          <span class="subranking-item">👥 N° Clientes FFMM: $50.000</span>
         </div>
       </div>
       
@@ -2240,9 +2553,13 @@ body {
           </div>
         </div>
         <div class="subranking-row">
-          <span class="subranking-label">Reconocimientos adicionales:</span>
+          <span class="subranking-label">Reconocimientos Adicionales</span>
           <span class="subranking-item">📋 APV+CUI: $50.000</span>
           <span class="subranking-item">📊 FFMM+SGOLD: $50.000</span>
+        </div>
+        <div class="canal-summary">
+          <span class="canal-summary-label">💼 TOTAL PREMIOS CANAL FUERZA DE VENTAS</span>
+          <span class="canal-summary-total">$1.200.000</span>
         </div>
       </div>
       
@@ -2281,7 +2598,7 @@ body {
           <div class="categoria-icon-big">🤝</div>
           <div>
             <h3 class="categoria-title-big">EERR</h3>
-            <p class="categoria-subtitle">Ejecutivos Relación</p>
+            <p class="categoria-subtitle">Ejecutivos Relación · Canal Relación</p>
           </div>
         </div>
         <div class="premios-row">
@@ -2303,10 +2620,14 @@ body {
           </div>
         </div>
         <div class="subranking-row">
-          <span class="subranking-label">Reconocimientos adicionales:</span>
+          <span class="subranking-label">Reconocimientos Adicionales</span>
           <span class="subranking-item">📋 APV+CUI: $50.000</span>
           <span class="subranking-item">📊 FFMM+SGOLD: $50.000</span>
-          <span class="subranking-item">👥 N° Clientes: $50.000</span>
+          <span class="subranking-item">👥 N° Clientes FFMM: $50.000</span>
+        </div>
+        <div class="canal-summary">
+          <span class="canal-summary-label">🤝 TOTAL PREMIOS CANAL RELACIÓN</span>
+          <span class="canal-summary-total">$1.050.000</span>
         </div>
       </div>
       
@@ -2588,7 +2909,39 @@ body {
   </div>
 </section>
 
+</div><!-- fin app-content -->
+
 <script>
+// ═══════════════════════════════════════════════════════════════
+// LOGIN - Usuario: admin / Clave: 2026
+// ═══════════════════════════════════════════════════════════════
+const CREDENTIALS = { user: 'admin', pass: '2026' };
+
+function doLogin() {
+  const user = document.getElementById('login-user').value;
+  const pass = document.getElementById('login-pass').value;
+  
+  if (user === CREDENTIALS.user && pass === CREDENTIALS.pass) {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('app-content').classList.add('visible');
+    sessionStorage.setItem('avanzadas_logged', 'true');
+  } else {
+    document.getElementById('login-error').classList.add('show');
+    setTimeout(() => document.getElementById('login-error').classList.remove('show'), 2500);
+  }
+}
+
+// Enter para login
+document.getElementById('login-pass').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// Verificar sesión
+if (sessionStorage.getItem('avanzadas_logged') === 'true') {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('app-content').classList.add('visible');
+}
+
 // Barra de progreso
 const progressBar = document.getElementById('progress-bar');
 window.addEventListener('scroll', () => {
@@ -2694,22 +3047,144 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
+// ═══════════════════════════════════════════════════════════════
+// EDITOR RÁPIDO DE PÁGINAS
+// ═══════════════════════════════════════════════════════════════
+const editBtn = document.getElementById('edit-btn');
+const editModal = document.getElementById('edit-modal');
+const editFields = document.getElementById('edit-fields');
+const editPageName = document.getElementById('edit-page-name');
+
+let currentEditSection = null;
+
+// Detectar página actual
+function getCurrentPage() {
+  const scrollY = window.scrollY + window.innerHeight / 2;
+  for (const id of pageIds) {
+    const section = document.getElementById(id);
+    if (section) {
+      const top = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+      if (scrollY >= top && scrollY < bottom) {
+        return id;
+      }
+    }
+  }
+  return pageIds[0];
+}
+
+// Nombres de páginas
+const pageDisplayNames = {
+  'inicio': 'Portada',
+  'objetivo': 'Objetivos',
+  'etapas': 'Etapas',
+  'premios': 'Premios',
+  'canales': 'Canales',
+  'req-jjvv': 'Criterios JJVV',
+  'req-eevv': 'EEVV',
+  'req-jjoo': 'Criterios JJOO',
+  'req-eerr': 'EERR',
+  'req-asesores': 'Asesores',
+  'premios-cat': 'Premios por Categoría',
+  'dashboard': 'Dashboard',
+  'cierre': 'Cierre'
+};
+
+// Abrir editor
+editBtn.addEventListener('click', () => {
+  const pageId = getCurrentPage();
+  currentEditSection = document.getElementById(pageId);
+  editPageName.textContent = pageDisplayNames[pageId] || pageId;
+  
+  // Buscar elementos editables
+  const editables = currentEditSection.querySelectorAll('.page-title, .page-subtitle, .page-tag, .hero-title, .hero-subtitle, .card-title, .card-text, .cierre-title, .cierre-subtitle, .cierre-message-text');
+  
+  let html = '';
+  editables.forEach((el, i) => {
+    const tagName = el.className.split(' ')[0];
+    const isLong = el.textContent.length > 60;
+    const value = el.innerHTML.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    
+    html += `
+      <div class="edit-field">
+        <label>${tagName}</label>
+        ${isLong 
+          ? `<textarea data-index="${i}">${value}</textarea>`
+          : `<input type="text" data-index="${i}" value="${value.replace(/"/g, '&quot;')}">`
+        }
+      </div>
+    `;
+  });
+  
+  if (editables.length === 0) {
+    html = '<p style="color: var(--text-light); text-align: center; padding: 40px;">Esta página no tiene elementos editables directos.</p>';
+  }
+  
+  editFields.innerHTML = html;
+  editModal.classList.add('show');
+});
+
+// Cerrar editor
+function closeEditModal() {
+  editModal.classList.remove('show');
+  currentEditSection = null;
+}
+
+// Guardar cambios
+function saveEdits() {
+  const inputs = editFields.querySelectorAll('input, textarea');
+  const editables = currentEditSection.querySelectorAll('.page-title, .page-subtitle, .page-tag, .hero-title, .hero-subtitle, .card-title, .card-text, .cierre-title, .cierre-subtitle, .cierre-message-text');
+  
+  inputs.forEach(input => {
+    const index = parseInt(input.dataset.index);
+    if (editables[index]) {
+      // Preservar estructura HTML básica
+      const original = editables[index].innerHTML;
+      const hasHighlight = original.includes('class="highlight"');
+      const hasGoldText = original.includes('class="gold-text"');
+      
+      let newValue = input.value;
+      
+      // Restaurar span highlight si existía
+      if (hasHighlight) {
+        const words = newValue.split(' ');
+        if (words.length > 1) {
+          words[words.length - 1] = `<span class="highlight">${words[words.length - 1]}</span>`;
+          newValue = words.join(' ');
+        }
+      }
+      if (hasGoldText) {
+        const words = newValue.split(' ');
+        if (words.length > 1) {
+          words[0] = `<span class="gold-text">${words[0]}</span>`;
+          newValue = words.join(' ');
+        }
+      }
+      
+      editables[index].innerHTML = newValue;
+    }
+  });
+  
+  closeEditModal();
+  showToast('✓ Cambios aplicados');
+}
+
+// Cerrar modal con click fuera
+editModal.addEventListener('click', (e) => {
+  if (e.target === editModal) closeEditModal();
+});
+
+// Cerrar con Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && editModal.classList.contains('show')) {
+    closeEditModal();
+  }
+});
+
 console.log('═══════════════════════════════════════════════════════════');
-console.log('   AVANZADAS 2026 - Versión Actualizada');
+console.log('   AVANZADAS 2026 - Versión con Editor');
 console.log('═══════════════════════════════════════════════════════════');
-console.log('CAMBIOS APLICADOS:');
-console.log('  ✓ Portada: Concurso CNS – LVAM');
-console.log('  ✓ Objetivos: Textos actualizados');
-console.log('  ✓ Premios: Reconocimientos y Premios');
-console.log('  ✓ Canales: 3 canales (FFVV, Relación, Jefes LVAM/Asesores)');
-console.log('  ✓ Criterios JJVV: Sorteo actualizado');
-console.log('  ✓ NUEVA: Página EEVV con tabla');
-console.log('  ✓ Criterios JJOO: Santiago-Grandes 70%, Regiones-Pequeñas 65%');
-console.log('  ✓ NUEVA: Página EERR con tabla');
-console.log('  ✓ NUEVA: Página Asesores CNS y Jefes LVAM');
-console.log('  ✓ NUEVA: Premios por Categoría');
-console.log('  ✓ NUEVA: Dashboard de Seguimiento');
-console.log('  ✓ Cierre: "no es solo un concurso" + chispas + dinero flotante');
+console.log('🔧 Editor rápido: Click en icono 🔧 (esquina superior izquierda)');
 console.log('═══════════════════════════════════════════════════════════');
 </script>
 
