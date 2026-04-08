@@ -192,17 +192,18 @@ body {
   inset: 0;
   background: linear-gradient(135deg, #1B8E8E 0%, #147575 100%);
   z-index: 9999;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 }
-#login-screen.hidden { display: none; }
+#login-screen.show { display: flex; }
 
 .login-box {
   background: var(--white);
   border-radius: 24px;
   padding: 48px 40px;
   width: 340px;
+  max-width: 90%;
   box-shadow: 0 30px 80px rgba(0,0,0,0.3);
   text-align: center;
 }
@@ -270,8 +271,19 @@ body {
 
 .login-error.show { display: block; }
 
-#app-content { display: none; }
-#app-content.visible { display: block; }
+.login-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 20px;
+  cursor: pointer;
+}
 
 /* ═══════════════════════════════════════════════════════════════
    BARRA DE PROGRESO
@@ -1593,13 +1605,69 @@ body {
 }
 
 @media (max-width: 768px) {
-  .page { padding: 50px 18px; }
-  .card { padding: 28px; }
-  .hero-title { font-size: 56px; }
-  .cierre-title { font-size: 44px; }
-  .cierre-message { padding: 28px 20px; }
-  .page-title { font-size: 36px; }
-  .tabla-corporativa th, .tabla-corporativa td { padding: 12px 10px; font-size: 13px; }
+  .page { padding: 40px 16px; }
+  .card { padding: 24px 20px; }
+  .hero-title { font-size: 48px; }
+  .cierre-title { font-size: 36px; }
+  .cierre-message { padding: 24px 18px; }
+  .page-title { font-size: 32px; }
+  .page-subtitle { font-size: 16px; margin-bottom: 32px; }
+  .tabla-corporativa th, .tabla-corporativa td { padding: 10px 8px; font-size: 12px; }
+  .criterios-grid { gap: 20px; }
+  .criterio-card { padding: 24px 20px; }
+  .criterio-header h3 { font-size: 24px; }
+  .criterio-item-value { font-size: 22px; }
+  .premios-header { flex-direction: column; text-align: center; gap: 16px; }
+  .premios-number { font-size: 80px; }
+  .premios-text { font-size: 18px; }
+  .premio-card { flex-direction: column; text-align: center; gap: 16px; }
+  .premio-icon { margin: 0 auto; }
+  .canales-grid { gap: 20px; }
+  .canal-card { padding: 24px 20px; }
+  .canal-header h3 { font-size: 20px; }
+  .sorteo-badge-big { padding: 16px 20px; font-size: 14px; }
+  .hero-badge { padding: 10px 20px; }
+  .hero-badge-text { font-size: 12px; }
+  .hero-subtitle { font-size: 20px; }
+  .scroll-indicator { bottom: 24px; }
+  #edit-btn { top: 12px; left: 12px; width: 34px; height: 34px; font-size: 12px; }
+  .categoria-premios-card { padding: 20px 16px; }
+  .categoria-title-big { font-size: 22px; }
+  .premios-row { gap: 8px; }
+  .premio-monto-card { min-width: 100px; padding: 14px 10px; }
+  .premio-valor { font-size: 22px; }
+  .premio-valor.big { font-size: 28px; }
+  .subranking-row { padding: 12px; gap: 8px; }
+  .subranking-item { padding: 8px 10px; font-size: 12px; }
+  .canal-summary { flex-direction: column; text-align: center; padding: 16px; }
+  .dashboard-grid { gap: 20px; }
+  .dashboard-card { padding: 20px 16px; }
+  .ranking-item { gap: 12px; }
+  .ranking-value { font-size: 16px; }
+  .kpi-value { font-size: 36px; }
+  .cierre-badge { padding: 10px 20px; }
+  .cierre-message-text { font-size: 18px; }
+  .cierre-signature h4 { font-size: 18px; }
+  .stage-marker { width: 70px; height: 70px; font-size: 32px; }
+  .stage-title { font-size: 18px; }
+  .stage-dates { font-size: 14px; }
+  .card-icon { width: 60px; height: 60px; font-size: 28px; }
+  .card-title { font-size: 20px; }
+  .card-text { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+  .page { padding: 32px 14px; }
+  .hero-title { font-size: 40px; }
+  .page-title { font-size: 28px; }
+  .cierre-title { font-size: 30px; }
+  .premios-number { font-size: 60px; }
+  .criterio-header h3 { font-size: 20px; }
+  .criterio-item-value { font-size: 20px; }
+  .premio-valor { font-size: 18px; }
+  .premio-valor.big { font-size: 24px; }
+  .categoria-title-big { font-size: 20px; }
+  .nav-map { display: none; }
 }
 
 /* Toast */
@@ -1623,12 +1691,13 @@ body {
 </head>
 <body>
 
-<!-- PANTALLA DE LOGIN -->
+<!-- LOGIN PARA EDICIÓN (solo aparece al presionar 🔧) -->
 <div id="login-screen">
+  <button class="login-close" onclick="closeLogin()">✕</button>
   <div class="login-box">
-    <div class="login-logo">🏔️</div>
-    <h1 class="login-title">Avanzadas 2026</h1>
-    <p class="login-subtitle">Ingresa tus credenciales</p>
+    <div class="login-logo">🔧</div>
+    <h1 class="login-title">Modo Edición</h1>
+    <p class="login-subtitle">Ingresa credenciales de administrador</p>
     <input type="text" id="login-user" class="login-input" placeholder="Usuario">
     <input type="password" id="login-pass" class="login-input" placeholder="Contraseña">
     <button class="login-btn" onclick="doLogin()">Ingresar</button>
@@ -1636,7 +1705,7 @@ body {
   </div>
 </div>
 
-<!-- CONTENIDO PRINCIPAL -->
+<!-- CONTENIDO PRINCIPAL (visible directamente) -->
 <div id="app-content">
 
 <div id="progress-bar"></div>
@@ -2901,7 +2970,15 @@ body {
         </p>
       </div>
       
-      <div class="cierre-signature cierre-fade delay-5">
+      <!-- QR para bases -->
+      <div class="cierre-fade delay-5" style="margin-top: 40px; text-align: center;">
+        <div style="display: inline-block; background: var(--white); padding: 20px; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.15);">
+          <div id="qr-code" style="width: 120px; height: 120px; margin: 0 auto;"></div>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--text-mid); font-weight: 600;">📄 Escanea para ver las bases</p>
+        </div>
+      </div>
+      
+      <div class="cierre-signature cierre-fade delay-6">
         <p>Consistencia que construye</p>
         <h4>¡Éxito en esta Avanzada!</h4>
       </div>
@@ -2913,18 +2990,30 @@ body {
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-// LOGIN - Usuario: admin / Clave: 2026
+// LOGIN PARA EDICIÓN - Usuario: admin / Clave: 2026
 // ═══════════════════════════════════════════════════════════════
 const CREDENTIALS = { user: 'admin', pass: '2026' };
+let isEditorUnlocked = false;
+
+function showLoginForEdit() {
+  document.getElementById('login-screen').classList.add('show');
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-user').focus();
+}
+
+function closeLogin() {
+  document.getElementById('login-screen').classList.remove('show');
+}
 
 function doLogin() {
   const user = document.getElementById('login-user').value;
   const pass = document.getElementById('login-pass').value;
   
   if (user === CREDENTIALS.user && pass === CREDENTIALS.pass) {
-    document.getElementById('login-screen').classList.add('hidden');
-    document.getElementById('app-content').classList.add('visible');
-    sessionStorage.setItem('avanzadas_logged', 'true');
+    isEditorUnlocked = true;
+    closeLogin();
+    openEditModal();
   } else {
     document.getElementById('login-error').classList.add('show');
     setTimeout(() => document.getElementById('login-error').classList.remove('show'), 2500);
@@ -2936,11 +3025,10 @@ document.getElementById('login-pass').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') doLogin();
 });
 
-// Verificar sesión
-if (sessionStorage.getItem('avanzadas_logged') === 'true') {
-  document.getElementById('login-screen').classList.add('hidden');
-  document.getElementById('app-content').classList.add('visible');
-}
+// Click fuera cierra login
+document.getElementById('login-screen').addEventListener('click', (e) => {
+  if (e.target.id === 'login-screen') closeLogin();
+});
 
 // Barra de progreso
 const progressBar = document.getElementById('progress-bar');
@@ -3090,8 +3178,16 @@ const pageDisplayNames = {
   'cierre': 'Cierre'
 };
 
-// Abrir editor
+// Abrir editor (requiere login)
 editBtn.addEventListener('click', () => {
+  if (isEditorUnlocked) {
+    openEditModal();
+  } else {
+    showLoginForEdit();
+  }
+});
+
+function openEditModal() {
   const pageId = getCurrentPage();
   currentEditSection = document.getElementById(pageId);
   editPageName.textContent = pageDisplayNames[pageId] || pageId;
@@ -3122,7 +3218,7 @@ editBtn.addEventListener('click', () => {
   
   editFields.innerHTML = html;
   editModal.classList.add('show');
-});
+}
 
 // Cerrar editor
 function closeEditModal() {
@@ -3181,10 +3277,34 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// ═══════════════════════════════════════════════════════════════
+// GENERADOR DE QR
+// ═══════════════════════════════════════════════════════════════
+function generateQR() {
+  const qrContainer = document.getElementById('qr-code');
+  if (!qrContainer) return;
+  
+  const url = 'https://tinyurl.com/CAvanzada';
+  const size = 120;
+  
+  // Usar API de Google Charts para generar QR
+  const qrImg = document.createElement('img');
+  qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(url)}&bgcolor=ffffff&color=1B8E8E`;
+  qrImg.alt = 'QR Bases Avanzadas 2026';
+  qrImg.style.cssText = 'width: 120px; height: 120px; border-radius: 8px;';
+  
+  qrContainer.innerHTML = '';
+  qrContainer.appendChild(qrImg);
+}
+
+// Generar QR al cargar
+generateQR();
+
 console.log('═══════════════════════════════════════════════════════════');
-console.log('   AVANZADAS 2026 - Versión con Editor');
+console.log('   AVANZADAS 2026 - Versión Final');
 console.log('═══════════════════════════════════════════════════════════');
-console.log('🔧 Editor rápido: Click en icono 🔧 (esquina superior izquierda)');
+console.log('🔧 Editor: Click en 🔧 → Login (admin/2026)');
+console.log('📱 QR: https://tinyurl.com/CAvanzada');
 console.log('═══════════════════════════════════════════════════════════');
 </script>
 
