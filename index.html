@@ -1530,6 +1530,101 @@ body {
   50% { transform: scale(1.3); opacity: 0.8; }
 }
 
+/* Efecto de brillo */
+.shine-effect {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.shine-effect::before,
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(135deg, #F5C400, #fff);
+  border-radius: 2px;
+}
+
+.shine-effect::before {
+  width: 4px;
+  height: 20px;
+  left: 8px;
+  animation: shinePulse 1.5s ease-in-out infinite;
+}
+
+.shine-effect::after {
+  width: 20px;
+  height: 4px;
+  top: 8px;
+  animation: shinePulse 1.5s ease-in-out infinite 0.2s;
+}
+
+@keyframes shinePulse {
+  0%, 100% { transform: scale(0.5); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Contenedor fuegos artificiales */
+#fireworks-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 6;
+}
+
+/* Partícula de fuego artificial */
+.firework-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: fireworkBurst 1.5s ease-out forwards;
+}
+
+@keyframes fireworkBurst {
+  0% { transform: scale(0); opacity: 1; }
+  50% { opacity: 1; }
+  100% { transform: scale(1) translateY(-50px); opacity: 0; }
+}
+
+/* Confeti */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  animation: confettiFall 4s ease-in-out infinite;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* Premio badge flotante */
+.prize-badge {
+  position: absolute;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  color: var(--text-dark);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 8px 25px rgba(245, 196, 0, 0.4);
+  animation: prizeBounce 3s ease-in-out infinite;
+  z-index: 7;
+  white-space: nowrap;
+}
+
+@keyframes prizeBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.05); }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    ANIMACIONES
 ═══════════════════════════════════════════════════════════════ */
@@ -1591,159 +1686,164 @@ body {
 .page.visible { opacity: 1; }
 
 /* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE
+   MOBILE-FIRST RESPONSIVE (optimizado para iPhone/Android)
 ═══════════════════════════════════════════════════════════════ */
+
+/* Base móvil - aplicado por defecto */
 @media (max-width: 1024px) {
-  .objetivos-grid, .premios-grid, .canales-grid, .criterios-grid, .dashboard-grid, .premios-categoria-grid { 
-    grid-template-columns: 1fr; 
-  }
-  .timeline-stages { flex-direction: column; gap: 40px; }
-  .timeline-path { display: none; }
-  .page { padding: 60px 28px; }
   #nav-map { display: none; }
-  .premios-header { flex-direction: column; text-align: center; }
+  .timeline-stages { flex-direction: column; gap: 32px; }
+  .timeline-path { display: none; }
+  .objetivos-grid, .premios-grid, .canales-grid, .criterios-grid, 
+  .dashboard-grid, .premios-categoria-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
-  .page { padding: 40px 16px; }
-  .card { padding: 24px 20px; }
-  .hero-title { font-size: 48px; }
-  .cierre-title { font-size: 36px; }
-  .cierre-message { padding: 24px 18px; }
-  .page-title { font-size: 32px; }
-  .page-subtitle { font-size: 16px; margin-bottom: 32px; }
+  /* Layout general */
+  .page { padding: 32px 14px; min-height: auto; }
+  .page-inner { padding: 0; }
+  .page-title { font-size: 28px; line-height: 1.2; }
+  .page-subtitle { font-size: 15px; margin-bottom: 24px; }
+  .page-tag { font-size: 12px; margin-bottom: 12px; }
+  .page-tag::before { width: 24px; }
   
-  /* Tabla asesores - scroll horizontal */
-  .tabla-corporativa { 
-    display: block; 
-    overflow-x: auto; 
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-  }
-  .tabla-corporativa th, .tabla-corporativa td { 
-    padding: 12px 14px; 
-    font-size: 13px; 
-    min-width: 100px;
-  }
-  .tabla-corporativa td:first-child,
-  .tabla-corporativa th:first-child { 
-    min-width: 90px;
-    position: sticky;
-    left: 0;
-    background: var(--white);
-    z-index: 1;
-  }
-  .tabla-corporativa thead th:first-child {
-    background: linear-gradient(135deg, var(--teal), var(--teal-dark));
-  }
+  /* Hero */
+  .hero-title { font-size: 42px; }
+  .hero-subtitle { font-size: 18px; }
+  .hero-badge { padding: 8px 16px; }
+  .hero-badge-text { font-size: 11px; }
+  .scroll-indicator { bottom: 20px; }
+  .scroll-mouse { width: 22px; height: 36px; }
   
-  .criterios-grid { gap: 20px; }
-  .criterio-card { padding: 24px 20px; }
-  .criterio-header h3 { font-size: 24px; }
-  .criterio-item-value { font-size: 22px; }
-  .premios-header { flex-direction: column; text-align: center; gap: 16px; }
-  .premios-number { font-size: 80px; }
-  .premios-text { font-size: 18px; }
-  .premio-card { flex-direction: column; text-align: center; gap: 16px; }
-  .premio-icon { margin: 0 auto; }
-  .canales-grid { gap: 20px; }
-  .canal-card { padding: 24px 20px; }
-  .canal-header h3 { font-size: 20px; }
-  .sorteo-badge-big { padding: 16px 20px; font-size: 14px; text-align: center; }
-  .hero-badge { padding: 10px 20px; }
-  .hero-badge-text { font-size: 12px; }
-  .hero-subtitle { font-size: 20px; }
-  .scroll-indicator { bottom: 24px; }
-  #edit-btn { top: 12px; left: 12px; width: 34px; height: 34px; font-size: 12px; }
+  /* Cards */
+  .card { padding: 20px 16px; border-radius: 16px; }
+  .card-icon { width: 56px; height: 56px; font-size: 26px; border-radius: 14px; margin-bottom: 16px; }
+  .card-title { font-size: 18px; margin-bottom: 8px; }
+  .card-text { font-size: 14px; line-height: 1.5; }
+  .card-badge { padding: 8px 14px; font-size: 12px; }
   
-  /* Premios por categoría - móvil */
-  .categoria-premios-card { padding: 20px 14px; }
-  .categoria-header { flex-direction: column; text-align: center; gap: 12px; }
-  .categoria-icon-big { width: 50px; height: 50px; font-size: 24px; margin: 0 auto; }
+  /* Premios header */
+  .premios-header { flex-direction: column; text-align: center; gap: 12px; margin-bottom: 24px; }
+  .premios-number { font-size: 64px; }
+  .premios-text { font-size: 16px; }
+  .premio-card { flex-direction: column; text-align: center; gap: 12px; padding: 20px 16px; }
+  .premio-icon { width: 56px; height: 56px; font-size: 26px; margin: 0 auto; }
+  .premio-content h4 { font-size: 16px; }
+  .premio-content p { font-size: 13px; }
+  
+  /* Canales */
+  .canales-grid { gap: 16px; }
+  .canal-card { padding: 20px 16px; border-radius: 16px; }
+  .canal-header { gap: 12px; margin-bottom: 16px; padding-bottom: 12px; }
+  .canal-icon { width: 48px; height: 48px; font-size: 22px; border-radius: 12px; }
+  .canal-header h3 { font-size: 18px; }
+  .canal-list li { padding: 10px 0; font-size: 15px; }
+  
+  /* Criterios */
+  .criterios-grid { gap: 16px; }
+  .criterio-card { padding: 20px 16px; border-radius: 16px; }
+  .criterio-header { gap: 10px; margin-bottom: 16px; padding-bottom: 12px; }
+  .criterio-badge { padding: 6px 12px; font-size: 11px; }
+  .criterio-header h3 { font-size: 20px; }
+  .criterio-items { gap: 12px; }
+  .criterio-item { padding: 14px; border-radius: 12px; gap: 14px; }
+  .criterio-item-icon { width: 44px; height: 44px; font-size: 20px; border-radius: 10px; }
+  .criterio-item-label { font-size: 12px; }
+  .criterio-item-value { font-size: 20px; }
+  .sorteo-badge-big { padding: 14px 18px; font-size: 13px; border-radius: 12px; margin-top: 24px; text-align: center; display: block; }
+  
+  /* Tabla asesores */
+  .tabla-corporativa { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; margin: 20px 0; }
+  .tabla-corporativa th, .tabla-corporativa td { padding: 10px 12px; font-size: 12px; min-width: 90px; white-space: nowrap; }
+  .tabla-corporativa td:first-child { font-weight: 600; min-width: 80px; position: sticky; left: 0; background: #fff; z-index: 1; box-shadow: 2px 0 4px rgba(0,0,0,0.05); }
+  .tabla-corporativa thead th:first-child { position: sticky; left: 0; z-index: 2; }
+  
+  /* Premios por categoría */
+  .categoria-premios-card { padding: 18px 14px; border-radius: 16px; margin-bottom: 0; }
+  .categoria-header { flex-direction: column; text-align: center; gap: 10px; margin-bottom: 16px; }
+  .categoria-icon-big { width: 48px; height: 48px; font-size: 22px; margin: 0 auto; border-radius: 12px; }
   .categoria-title-big { font-size: 20px; }
-  .categoria-subtitle { font-size: 12px; }
-  
-  /* Premios row - 2 columnas en móvil */
-  .premios-row { 
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px !important;
-  }
-  .premio-monto-card { 
-    min-width: unset !important; 
-    padding: 14px 8px !important;
-    flex: unset !important;
-  }
-  .premio-posicion { font-size: 11px; }
-  .premio-valor { font-size: 20px !important; }
-  .premio-valor.big { font-size: 24px !important; }
-  
-  /* Reconocimientos - stack vertical */
-  .subranking-row { 
-    padding: 14px 12px; 
-    gap: 8px;
-    flex-direction: column;
-  }
-  .subranking-label { text-align: center; margin-bottom: 8px; }
-  .subranking-item { 
-    padding: 10px 12px; 
-    font-size: 12px; 
-    text-align: center;
-    width: 100%;
-  }
-  
-  /* Resumen canal */
-  .canal-summary { 
-    flex-direction: column; 
-    text-align: center; 
-    padding: 16px;
-    gap: 8px;
-  }
-  .canal-summary-label { font-size: 12px; }
-  .canal-summary-total { font-size: 22px; }
-  
-  .dashboard-grid { gap: 20px; }
-  .dashboard-card { padding: 20px 16px; }
-  .ranking-item { gap: 12px; }
-  .ranking-value { font-size: 16px; }
-  .kpi-value { font-size: 36px; }
-  .cierre-badge { padding: 10px 20px; }
-  .cierre-message-text { font-size: 18px; }
-  .cierre-signature h4 { font-size: 18px; }
-  .stage-marker { width: 70px; height: 70px; font-size: 32px; }
-  .stage-title { font-size: 18px; }
-  .stage-dates { font-size: 14px; }
-  .card-icon { width: 60px; height: 60px; font-size: 28px; }
-  .card-title { font-size: 20px; }
-  .card-text { font-size: 14px; }
-}
-
-@media (max-width: 480px) {
-  .page { padding: 28px 12px; }
-  .hero-title { font-size: 36px; }
-  .page-title { font-size: 26px; }
-  .cierre-title { font-size: 28px; }
-  .premios-number { font-size: 60px; }
-  .criterio-header h3 { font-size: 18px; }
-  .criterio-item-value { font-size: 18px; }
-  
-  /* Premios categoría extra pequeño */
-  .categoria-premios-card { padding: 16px 12px; }
-  .categoria-title-big { font-size: 18px; }
-  .premio-posicion { font-size: 10px; letter-spacing: 0; }
+  .categoria-subtitle { font-size: 11px; line-height: 1.4; }
+  .premios-row { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; margin-top: 12px; }
+  .premio-monto-card { min-width: 0 !important; padding: 12px 8px !important; border-radius: 12px; }
+  .premio-posicion { font-size: 10px; letter-spacing: 0.02em; margin-bottom: 4px; }
   .premio-valor { font-size: 18px !important; }
-  .premio-valor.big { font-size: 20px !important; }
-  .subranking-item { font-size: 11px; padding: 8px 10px; }
+  .premio-valor.big { font-size: 22px !important; }
+  .subranking-row { flex-direction: column; padding: 12px; gap: 6px; border-radius: 10px; margin-top: 12px; }
+  .subranking-label { text-align: center; font-size: 11px; margin-bottom: 6px; }
+  .subranking-item { width: 100%; text-align: center; padding: 8px 10px; font-size: 11px; border-radius: 8px; }
+  .canal-summary { flex-direction: column; text-align: center; padding: 14px; gap: 6px; border-radius: 10px; margin-top: 12px; }
+  .canal-summary-label { font-size: 11px; }
   .canal-summary-total { font-size: 20px; }
   
-  /* Tabla asesores más compacta */
-  .tabla-corporativa th, .tabla-corporativa td { 
-    padding: 10px 12px; 
-    font-size: 12px; 
-    min-width: 85px;
-  }
+  /* Dashboard */
+  .dashboard-grid { gap: 16px; }
+  .dashboard-card { padding: 18px 14px; border-radius: 16px; }
+  .dashboard-card-header { margin-bottom: 14px; padding-bottom: 10px; }
+  .dashboard-card-title { font-size: 15px; }
+  .dashboard-badge { padding: 4px 10px; font-size: 10px; }
+  .ranking-list { gap: 0; }
+  .ranking-item { padding: 10px 0; gap: 10px; }
+  .ranking-pos { width: 30px; height: 30px; font-size: 12px; border-radius: 8px; }
+  .ranking-name { font-size: 14px; }
+  .ranking-meta { font-size: 11px; }
+  .ranking-value { font-size: 15px; }
+  .progress-bar-container { margin-top: 12px; }
+  .progress-label { font-size: 12px; }
+  .progress-track { height: 8px; }
+  .kpi-big { padding: 16px; }
+  .kpi-value { font-size: 32px; }
+  .kpi-label { font-size: 13px; }
   
-  #nav-map { display: none; }
+  /* Cierre */
+  .cierre-title { font-size: 32px; }
+  .cierre-subtitle { font-size: 16px; margin-bottom: 24px; }
+  .cierre-badge { padding: 8px 16px; margin-bottom: 20px; }
+  .cierre-badge-text { font-size: 11px; }
+  .cierre-message { padding: 20px 16px; border-radius: 16px; max-width: 100%; }
+  .cierre-message-text { font-size: 16px; line-height: 1.5; }
+  .cierre-signature { margin-top: 24px; }
+  .cierre-signature p { font-size: 13px; }
+  .cierre-signature h4 { font-size: 16px; }
+  #qr-code { width: 100px !important; height: 100px !important; }
+  #qr-code img { width: 100px !important; height: 100px !important; }
+  .money-float { font-size: 20px; }
+  
+  /* Timeline */
+  .stage-marker { width: 60px; height: 60px; font-size: 26px; margin-bottom: 16px; border-width: 4px; }
+  .stage-marker::after { width: 28px; height: 28px; font-size: 14px; top: -6px; right: -6px; }
+  .stage-title { font-size: 16px; }
+  .stage-dates { font-size: 13px; }
+  
+  /* Botones y modales */
+  #edit-btn { top: 10px; left: 10px; width: 32px; height: 32px; font-size: 12px; border-radius: 8px; }
+  .login-box { width: 90%; max-width: 320px; padding: 32px 24px; }
+  .login-title { font-size: 20px; }
+  .login-input { padding: 12px 14px; font-size: 14px; }
+  .login-btn { padding: 12px; font-size: 15px; }
+  .edit-modal-box { width: 95%; max-height: 85vh; }
+  .edit-modal-header { padding: 16px; }
+  .edit-modal-header h3 { font-size: 16px; }
+  .edit-modal-body { padding: 16px; }
+  .edit-field label { font-size: 11px; }
+  .edit-field input, .edit-field textarea { padding: 10px 12px; font-size: 14px; }
+  .toast { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; }
+}
+
+/* Extra pequeño (iPhone SE, etc) */
+@media (max-width: 380px) {
+  .page { padding: 24px 12px; }
+  .page-title { font-size: 24px; }
+  .hero-title { font-size: 36px; }
+  .cierre-title { font-size: 28px; }
+  .premios-number { font-size: 52px; }
+  .categoria-title-big { font-size: 18px; }
+  .premio-valor { font-size: 16px !important; }
+  .premio-valor.big { font-size: 20px !important; }
+  .criterio-header h3 { font-size: 18px; }
+  .criterio-item-value { font-size: 18px; }
+  .canal-summary-total { font-size: 18px; }
+  .kpi-value { font-size: 28px; }
 }
 
 /* Toast */
@@ -1816,7 +1916,7 @@ body {
   <div class="nav-item" data-target="req-eerr"><div class="nav-dot"></div><span class="nav-label">EERR</span></div>
   <div class="nav-item" data-target="req-asesores"><div class="nav-dot"></div><span class="nav-label">Asesores</span></div>
   <div class="nav-item" data-target="premios-cat"><div class="nav-dot"></div><span class="nav-label">Categorías</span></div>
-  <div class="nav-item" data-target="dashboard"><div class="nav-dot"></div><span class="nav-label">Dashboard</span></div>
+  <div class="nav-item" data-target="dashboard"><div class="nav-dot"></div><span class="nav-label">Seguimientos</span></div>
   <div class="nav-item" data-target="cierre"><div class="nav-dot"></div><span class="nav-label">¡Partimos!</span></div>
 </nav>
 
@@ -2702,10 +2802,6 @@ body {
           <span class="subranking-item">📋 APV+CUI: $50.000</span>
           <span class="subranking-item">📊 FFMM+SGOLD: $50.000</span>
         </div>
-        <div class="canal-summary">
-          <span class="canal-summary-label">💼 TOTAL PREMIOS CANAL FUERZA DE VENTAS</span>
-          <span class="canal-summary-total">$1.200.000</span>
-        </div>
       </div>
       
       <!-- JJOO -->
@@ -2770,10 +2866,6 @@ body {
           <span class="subranking-item">📊 FFMM+SGOLD: $50.000</span>
           <span class="subranking-item">👥 N° Clientes FFMM: $50.000</span>
         </div>
-        <div class="canal-summary">
-          <span class="canal-summary-label">🤝 TOTAL PREMIOS CANAL RELACIÓN</span>
-          <span class="canal-summary-total">$1.050.000</span>
-        </div>
       </div>
       
       <!-- ASESORES -->
@@ -2816,7 +2908,7 @@ body {
 <section id="dashboard" class="page">
   <div class="page-inner">
     <div class="page-tag fade-in">Vistas Piloto</div>
-    <h2 class="page-title slide-up delay-1">Dashboard de <span class="highlight">Seguimiento</span></h2>
+    <h2 class="page-title slide-up delay-1">Seguimientos para <span class="highlight">tus Equipos</span></h2>
     <p class="page-subtitle fade-in delay-2">Visualización de métricas clave del concurso</p>
     
     <div class="dashboard-grid">
@@ -2981,21 +3073,36 @@ body {
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     PÁGINA CIERRE - "PARTIMOS LA AVANZADA" CON CHISPAS Y EFECTOS
+     PÁGINA CIERRE - "PARTIMOS LA AVANZADA" CON ANIMACIONES MOTIVACIONALES
 ═══════════════════════════════════════════════════════════════ -->
 <section id="cierre" class="page">
   <div class="cierre-cloud cierre-cloud-1"></div>
   <div class="cierre-cloud cierre-cloud-2"></div>
   
-  <!-- Efectos de dinero flotante -->
-  <div class="money-float" style="top: 15%; left: 10%;">💰</div>
-  <div class="money-float" style="top: 25%; right: 15%; animation-delay: 1s;">💵</div>
-  <div class="money-float" style="top: 35%; left: 20%; animation-delay: 2s;">🪙</div>
-  <div class="money-float" style="top: 20%; right: 25%; animation-delay: 0.5s;">✨</div>
-  <div class="money-float" style="top: 30%; left: 8%; animation-delay: 1.5s;">💎</div>
+  <!-- Contenedor de fuegos artificiales -->
+  <div id="fireworks-container"></div>
   
-  <!-- Glow dorado -->
+  <!-- Efectos de dinero y premios flotantes -->
+  <div class="money-float" style="top: 12%; left: 8%;">💰</div>
+  <div class="money-float" style="top: 18%; right: 12%; animation-delay: 0.5s;">💵</div>
+  <div class="money-float" style="top: 28%; left: 15%; animation-delay: 1s;">🪙</div>
+  <div class="money-float" style="top: 22%; right: 20%; animation-delay: 1.5s;">💎</div>
+  <div class="money-float" style="top: 35%; left: 5%; animation-delay: 2s;">🏆</div>
+  <div class="money-float" style="top: 15%; right: 8%; animation-delay: 0.8s;">🥇</div>
+  <div class="money-float" style="top: 32%; right: 5%; animation-delay: 1.2s;">✨</div>
+  <div class="money-float" style="top: 25%; left: 22%; animation-delay: 1.8s;">🎉</div>
+  <div class="money-float" style="top: 10%; left: 35%; animation-delay: 0.3s;">⭐</div>
+  <div class="money-float" style="top: 20%; right: 30%; animation-delay: 2.2s;">🌟</div>
+  
+  <!-- Brillos animados -->
+  <div class="shine-effect" style="top: 20%; left: 15%;"></div>
+  <div class="shine-effect" style="top: 30%; right: 20%; animation-delay: 1s;"></div>
+  <div class="shine-effect" style="top: 15%; right: 35%; animation-delay: 2s;"></div>
+  
+  <!-- Glow dorado pulsante -->
   <div class="glow-effect" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+  <div class="glow-effect" style="top: 30%; left: 20%; width: 150px; height: 150px; animation-delay: 1s;"></div>
+  <div class="glow-effect" style="top: 25%; right: 15%; width: 120px; height: 120px; animation-delay: 0.5s;"></div>
   
   <svg id="cierre-scene" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice">
     <defs>
@@ -3050,7 +3157,7 @@ body {
       <div class="cierre-fade delay-5" style="margin-top: 40px; text-align: center;">
         <div style="display: inline-block; background: var(--white); padding: 20px; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.15);">
           <div id="qr-code" style="width: 120px; height: 120px; margin: 0 auto;"></div>
-          <p style="margin-top: 12px; font-size: 13px; color: var(--text-mid); font-weight: 600;">📄 Escanea para ver las bases</p>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--text-mid); font-weight: 600;">📄 Escanea para volver a ver la presentación</p>
         </div>
       </div>
       
@@ -3191,17 +3298,85 @@ function createSparkle() {
   
   const sparkle = document.createElement('div');
   sparkle.className = 'sparkle';
-  sparkle.innerHTML = ['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)];
+  sparkle.innerHTML = ['✨', '⭐', '💫', '🌟', '🎉', '🏆', '💰'][Math.floor(Math.random() * 7)];
   sparkle.style.left = Math.random() * 100 + '%';
-  sparkle.style.top = (40 + Math.random() * 30) + '%';
-  sparkle.style.fontSize = (16 + Math.random() * 20) + 'px';
+  sparkle.style.top = (30 + Math.random() * 40) + '%';
+  sparkle.style.fontSize = (18 + Math.random() * 24) + 'px';
   cierreSection.appendChild(sparkle);
   
   setTimeout(() => sparkle.remove(), 2000);
 }
 
-// Generar chispas periódicamente cuando el cierre está visible
-setInterval(createSparkle, 400);
+// Fuegos artificiales
+function createFirework() {
+  const container = document.getElementById('fireworks-container');
+  if (!container) return;
+  
+  const cierreSection = document.getElementById('cierre');
+  const rect = cierreSection.getBoundingClientRect();
+  if (rect.top > window.innerHeight || rect.bottom < 0) return;
+  
+  const colors = ['#F5C400', '#F5A623', '#E53935', '#1B8E8E', '#8B5CF6', '#EC4899', '#10B981'];
+  const x = 10 + Math.random() * 80;
+  const y = 15 + Math.random() * 35;
+  
+  for (let i = 0; i < 12; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'firework-particle';
+    particle.style.left = x + '%';
+    particle.style.top = y + '%';
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.boxShadow = `0 0 6px ${particle.style.background}`;
+    
+    const angle = (i / 12) * 360;
+    const distance = 30 + Math.random() * 50;
+    const tx = Math.cos(angle * Math.PI / 180) * distance;
+    const ty = Math.sin(angle * Math.PI / 180) * distance;
+    
+    particle.style.setProperty('--tx', tx + 'px');
+    particle.style.setProperty('--ty', ty + 'px');
+    particle.style.animation = `fireworkExplode 1.2s ease-out forwards`;
+    
+    container.appendChild(particle);
+    setTimeout(() => particle.remove(), 1200);
+  }
+}
+
+// Confeti
+function createConfetti() {
+  const cierreSection = document.getElementById('cierre');
+  if (!cierreSection) return;
+  
+  const rect = cierreSection.getBoundingClientRect();
+  if (rect.top > window.innerHeight || rect.bottom < 0) return;
+  
+  const confetti = document.createElement('div');
+  confetti.className = 'confetti';
+  confetti.innerHTML = ['🎊', '🎉', '✨', '⭐', '💛', '🧡'][Math.floor(Math.random() * 6)];
+  confetti.style.left = Math.random() * 100 + '%';
+  confetti.style.top = '-20px';
+  confetti.style.fontSize = (12 + Math.random() * 16) + 'px';
+  confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
+  confetti.style.animationDelay = Math.random() * 2 + 's';
+  cierreSection.appendChild(confetti);
+  
+  setTimeout(() => confetti.remove(), 6000);
+}
+
+// Agregar CSS dinámico para explosión de fuegos artificiales
+const fireworkStyle = document.createElement('style');
+fireworkStyle.textContent = `
+  @keyframes fireworkExplode {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+  }
+`;
+document.head.appendChild(fireworkStyle);
+
+// Generar efectos periódicamente cuando el cierre está visible
+setInterval(createSparkle, 300);
+setInterval(createFirework, 1500);
+setInterval(createConfetti, 800);
 
 // Toast
 const toast = document.getElementById('toast');
@@ -3250,7 +3425,7 @@ const pageDisplayNames = {
   'req-eerr': 'EERR',
   'req-asesores': 'Asesores',
   'premios-cat': 'Premios por Categoría',
-  'dashboard': 'Dashboard',
+  'dashboard': 'Seguimientos para tus Equipos',
   'cierre': 'Cierre'
 };
 
