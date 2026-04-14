@@ -38,6 +38,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  zoom: 0.9;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1348,6 +1349,9 @@ body {
   position: relative;
   z-index: 10;
   text-align: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  box-sizing: border-box;
 }
 
 #cierre-scene {
@@ -1372,7 +1376,7 @@ body {
 .cierre-content {
   position: relative;
   z-index: 10;
-  margin-bottom: 6vh;
+  margin-bottom: 0;
 }
 
 .cierre-badge {
@@ -1380,9 +1384,9 @@ body {
   align-items: center;
   gap: 10px;
   background: rgba(255,255,255,0.98);
-  padding: 12px 28px;
+  padding: 10px 24px;
   border-radius: 50px;
-  margin-bottom: 36px;
+  margin-bottom: 20px;
   box-shadow: 0 12px 45px rgba(0,0,0,0.1);
 }
 
@@ -1395,28 +1399,28 @@ body {
 
 .cierre-title {
   font-family: 'Sora', sans-serif;
-  font-size: clamp(50px, 11vw, 110px);
+  font-size: clamp(32px, 6.5vw, 68px);
   font-weight: 900;
   color: var(--white);
   text-shadow: 0 8px 40px rgba(0,0,0,0.2), 0 16px 80px rgba(0,0,0,0.12);
   line-height: 1;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   letter-spacing: -0.03em;
   position: relative;
 }
 
 .cierre-subtitle {
   font-family: 'Sora', sans-serif;
-  font-size: clamp(22px, 3.5vw, 38px);
+  font-size: clamp(16px, 2.5vw, 26px);
   font-weight: 500;
   color: var(--white);
   text-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  margin-bottom: 48px;
+  margin-bottom: 24px;
 }
 
 .cierre-message {
   max-width: 850px;
-  padding: 44px 64px;
+  padding: 28px 48px;
   background: rgba(255,255,255,0.97);
   border-radius: 28px;
   box-shadow: 0 25px 80px rgba(0,0,0,0.12);
@@ -1444,7 +1448,7 @@ body {
 
 .cierre-message-text {
   font-family: 'Sora', sans-serif;
-  font-size: clamp(22px, 3vw, 36px);
+  font-size: clamp(17px, 2.2vw, 26px);
   font-weight: 700;
   color: var(--text-dark);
   line-height: 1.4;
@@ -1458,7 +1462,7 @@ body {
 }
 
 .cierre-signature {
-  margin-top: 48px;
+  margin-top: 16px;
 }
 
 .cierre-signature p {
@@ -2748,7 +2752,7 @@ body {
           <div class="categoria-icon-big">🏆</div>
           <div>
             <h3 class="categoria-title-big">EEVV</h3>
-            <p class="categoria-subtitle">Ejecutivos de Venta · Canal Fuerza de Ventas</p>
+
           </div>
         </div>
         <div class="premios-row">
@@ -2783,7 +2787,7 @@ body {
           <div class="categoria-icon-big">👔</div>
           <div>
             <h3 class="categoria-title-big">JJVV</h3>
-            <p class="categoria-subtitle">Jefes de Ventas · 3 Rankings: Grande, Chica, Corporativos</p>
+
           </div>
         </div>
         <div class="premios-row">
@@ -2817,7 +2821,7 @@ body {
           <div class="categoria-icon-big">🏢</div>
           <div>
             <h3 class="categoria-title-big">JJOO</h3>
-            <p class="categoria-subtitle">Jefes de Oficina · 2 Rankings: Grande, Chica</p>
+
           </div>
         </div>
         <div class="premios-row">
@@ -2846,7 +2850,7 @@ body {
           <div class="categoria-icon-big">🤝</div>
           <div>
             <h3 class="categoria-title-big">EERR</h3>
-            <p class="categoria-subtitle">Ejecutivos Relación · Canal Relación</p>
+
           </div>
         </div>
         <div class="premios-row">
@@ -2881,7 +2885,7 @@ body {
           <div class="categoria-icon-big">⭐</div>
           <div>
             <h3 class="categoria-title-big">Asesores</h3>
-            <p class="categoria-subtitle">Por zona: Corporativos, Santiago, Regiones 1, Regiones 2</p>
+
           </div>
         </div>
         <div class="premios-row">
@@ -3161,16 +3165,16 @@ body {
       </div>
       
       <!-- QR para bases -->
-      <div class="cierre-fade delay-5" style="margin-top: 40px; text-align: center;">
-        <div style="display: inline-block; background: var(--white); padding: 20px; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.15);">
-          <div id="qr-code" style="width: 120px; height: 120px; margin: 0 auto;"></div>
-          <p style="margin-top: 12px; font-size: 13px; color: var(--text-mid); font-weight: 600;">📄 Escanea para volver a ver la presentación</p>
+      <div class="cierre-fade delay-5" style="margin-top: 20px; text-align: center;">
+        <div style="display: inline-block; background: var(--white); padding: 14px; border-radius: 16px; box-shadow: 0 15px 50px rgba(0,0,0,0.15);">
+          <div id="qr-code" style="width: 100px; height: 100px; margin: 0 auto;"></div>
+          <p style="margin-top: 8px; font-size: 12px; color: var(--text-mid); font-weight: 600;">📄 Escanea para volver a ver la presentación</p>
         </div>
       </div>
       
       <div class="cierre-signature cierre-fade delay-6">
         <p>Consistencia que construye</p>
-        <h4>¡Éxito en esta Avanzada!</h4>
+        <h4>¡Mucho éxito para todos en este concurso!</h4>
       </div>
     </div>
   </div>
@@ -3543,13 +3547,13 @@ function generateQR() {
   if (!qrContainer) return;
   
   const url = 'https://tinyurl.com/CAvanzada';
-  const size = 120;
+  const size = 100;
   
   // Usar API de Google Charts para generar QR
   const qrImg = document.createElement('img');
   qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(url)}&bgcolor=ffffff&color=1B8E8E`;
   qrImg.alt = 'QR Bases Avanzadas 2026';
-  qrImg.style.cssText = 'width: 120px; height: 120px; border-radius: 8px;';
+  qrImg.style.cssText = 'width: 100px; height: 100px; border-radius: 8px;';
   
   qrContainer.innerHTML = '';
   qrContainer.appendChild(qrImg);
